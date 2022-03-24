@@ -8,12 +8,19 @@ public class GameController : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public Camera cam;
-    Vector3 offset;
-
+    public float safeMargin;
+    public Vector3 offset;
+    public GameObject[] platformPrefab;
+    GameObject tempBlock;
+    public float spawnPoint = 0f;
+    //public GameObject currentPlatform;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
+      // int k = Random.Range(0, platformPrefab.Length);
+      
+        //Instantiate(platformPrefab[1], tempBlock.transform.position + new Vector3(10f, 0f, 0f), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -26,6 +33,15 @@ public class GameController : MonoBehaviour
             cam.transform.position = new Vector3(playerMovement.transform.position.x, cam.transform.position.y, cam.transform.position.z);
             //cam.transform.position = new Vector3(playerMovement.transform.position.x, cam.transform.position.y, cam.transform.po
         }
-        
+        while(spawnPoint < playerMovement.transform.position.x + safeMargin)
+        {
+            int k = Random.Range(0, platformPrefab.Length);
+            GameObject  currentPlatform = Instantiate(platformPrefab[k], transform.position, Quaternion.identity);
+            PlatformController platformController = currentPlatform.GetComponent<PlatformController>();
+            currentPlatform.transform.position = new Vector3(spawnPoint+platformController.platformSize/2,0,0);
+          //  spawnPoint = spawnPoint + platformController.platformSize / 2;
+        }
+
+
     }
 }
