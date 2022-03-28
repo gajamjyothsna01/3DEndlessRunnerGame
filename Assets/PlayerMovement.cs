@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     public Text scoreText;
     int speedToIncrease, increaseTheSpeedAfterSomeDistance;
     public Text textScore;
+    public GameObject winImage;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
@@ -30,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
         }
         score = Mathf.FloorToInt(transform.position.x);
         scoreText.text = score.ToString();
+        if(score > 100)
+        {
+            winImage.SetActive(true);
+        }
         if (score == speedToIncrease)
         {
             playerSpeed = playerSpeed + 0.5f;
