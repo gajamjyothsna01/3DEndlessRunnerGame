@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     public float playerSpeed;
     bool isGrounded = true;
-    
+    int score;
+    public Text scoreText;
+    int speedToIncrease, increaseTheSpeedAfterSomeDistance;
+    public Text textScore;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,16 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up * playerJumpForce);
             isGrounded = false;
         }
+        score = Mathf.FloorToInt(transform.position.x);
+        scoreText.text = score.ToString();
+        if (score == speedToIncrease)
+        {
+            playerSpeed = playerSpeed + 0.5f;
+            speedToIncrease = speedToIncrease + increaseTheSpeedAfterSomeDistance;
+        }
+
+
+        //  Debug.Log(score);   
 
     }
     private void FixedUpdate()
@@ -49,4 +63,5 @@ public class PlayerMovement : MonoBehaviour
            // Destroy(other.gameObject);
         }
     }
+
 }
